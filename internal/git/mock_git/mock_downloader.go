@@ -2,7 +2,7 @@ package mock_git
 
 import (
 	"github.com/golang/mock/gomock"
-	"go-geoffrey/internal/config"
+	"github.com/solivaf/go-geoffrey/internal/config"
 	"reflect"
 )
 

@@ -1,9 +1,9 @@
 package git
 
 import (
-	"go-geoffrey/internal/config"
-	"go-geoffrey/internal/pkg/command"
-	_repository "go-geoffrey/internal/repository"
+	"github.com/solivaf/go-geoffrey/internal/config"
+	"github.com/solivaf/go-geoffrey/internal/pkg/command"
+	_repository "github.com/solivaf/go-geoffrey/internal/repository"
 	"log"
 	_url "net/url"
 	"strings"

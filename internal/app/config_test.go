@@ -1,8 +1,8 @@
 package app_test
 
 import (
+	"github.com/solivaf/go-geoffrey/internal/app"
 	"github.com/stretchr/testify/assert"
-	"go-geoffrey/internal/app"
 	"os"
 	"testing"
 )

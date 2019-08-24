@@ -1,7 +1,7 @@
 package git
 
 import (
-	"go-geoffrey/internal/config"
+	"github.com/solivaf/go-geoffrey/internal/config"
 	"log"
 )
 

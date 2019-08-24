@@ -2,7 +2,7 @@ package app
 
 import (
 	"errors"
-	"go-geoffrey/internal/config"
+	"github.com/solivaf/go-geoffrey/internal/config"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"os"

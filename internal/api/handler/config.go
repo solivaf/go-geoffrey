@@ -3,8 +3,8 @@ package handler
 import (
 	"encoding/json"
 	"github.com/go-chi/chi"
-	"go-geoffrey/internal/git"
-	"go-geoffrey/internal/repository"
+	"github.com/solivaf/go-geoffrey/internal/git"
+	"github.com/solivaf/go-geoffrey/internal/repository"
 	"gopkg.in/yaml.v2"
 	"net/http"
 )

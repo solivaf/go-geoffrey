@@ -2,10 +2,10 @@ package git_test
 
 import (
 	"github.com/golang/mock/gomock"
+	"github.com/solivaf/go-geoffrey/internal/config"
+	"github.com/solivaf/go-geoffrey/internal/git"
+	"github.com/solivaf/go-geoffrey/internal/git/mock_git"
 	"github.com/stretchr/testify/assert"
-	"go-geoffrey/internal/config"
-	"go-geoffrey/internal/git"
-	"go-geoffrey/internal/git/mock_git"
 	"io/ioutil"
 	"os"
 	"path/filepath"
