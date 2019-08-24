@@ -1,4 +1,4 @@
-module go-geoffrey
+module github.com/solivaf/go-geoffrey
 
 go 1.12
 
