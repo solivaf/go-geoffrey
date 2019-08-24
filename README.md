@@ -1,5 +1,7 @@
 # Geoffrey
-Is a lightweight config server written in Go based on Git private repositories. It is easy to use and getting started. 
+Is a lightweight config server written in Go based on Git private repositories based on Spring Cloud Config Server. 
+
+It is easy to use and getting started. 
 
 ## Getting Started
 You can clone this repo, build the latest version or run the following command:
@@ -84,7 +86,7 @@ in GEOFFREY_CONFIG path.
 Comparing Geoffrey with Spring Cloud Config Server we see a big difference in resource allocation. Just running docker
 containers without any particular configuration we see something like the image below
 
-![vs spring cloud](images/stats.png) 
+![vs spring cloud](images/stats.png)
 
 ## Contributing
 
