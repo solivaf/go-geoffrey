@@ -6,4 +6,5 @@ WORKDIR /app/go-geoffrey
 RUN go install github.com/solivaf/go-geoffrey
 
 FROM alpine
+RUN apk update && apk add --no-cache git
 COPY --from=builder /go/bin/go-geoffrey /go/bin/go-geoffrey

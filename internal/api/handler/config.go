@@ -22,15 +22,21 @@ func (h *Handler) RetrieveConfig(w http.ResponseWriter, r *http.Request) {
 	env := chi.URLParam(r, "env")
 	response := h.createContent(app, env)
 
-	m := make(map[string]interface{})
+	m := make(map[string]map[string]interface{})
 	if err := yaml.Unmarshal([]byte(response), &m); err != nil {
 		w.Write([]byte(err.Error()))
 		w.WriteHeader(http.StatusInternalServerError)
 	}
-	b, _ := yaml.Marshal(&m)
 
-	w.Write(b)
+	b, err := json.Marshal(&m)
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
 	w.Header().Set("Content-Type", "application/json")
+	w.Write(b)
 }
 
 func (h *Handler) Health(w http.ResponseWriter, r *http.Request) {

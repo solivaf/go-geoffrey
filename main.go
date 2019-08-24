@@ -34,7 +34,8 @@ func main() {
 	r.Get("/{app}/{env}", h.RetrieveConfig)
 	r.Get("/health", h.Health)
 
-	log.Fatal(http.ListenAndServe(":3000", r))
+	log.Println("Server started at " + config.ServerConfig().Port())
+	log.Fatal(http.ListenAndServe(":"+config.ServerConfig().Port(), r))
 }
 
 func fetchRepositories(fetcher git.Fetcher) {

@@ -1,29 +1,28 @@
-# go-geoffrey
-Is a lightweight config server written in Go. It is easy to use and getting started.
+# Geoffrey
+Is a lightweight config server written in Go based on Git private repositories. It is easy to use and getting started.
 
-### Getting Started
+## Getting Started
 You can clone this repo, build the latest version or run the following command:
 
 ```bash
-$ go install github.com/solivaf/go-geoffrey
-```
-and run 
-```bash
-$ go-geoffrey
-```
-to initialize new instance of Geoffrey. By default Geoffrey runs on port 9090 but you can configure through
-a config file named **application.yml** in any location which you can specify by environment variable **GEOFFREY_CONFIG**.
+$ go install github.com/solivaf/go-geoffrey #requires go 1.12+
 
+$ GEOFFREY_CONFIG=./config/application.yml go-geoffrey
+```
+
+Geoffrey depends on a yaml configuration file with repository configuration which will be used to download
+your configuration files. 
 ```bash
 $ GEOFFREY_CONFIG=./config/new-application.yml go-geoffrey
 ```
-and the content should be similar as
+
 ```yaml
+#new-application.yml
 server:
   port: 9090
 
 git:
-  url: https://github.com/solivaf/go-maria #default repository
+  url: https://github.com/solivaf/go-maria #default repository is always required
   credential:
     username: solivaf
     password: somedumbpassword
@@ -53,6 +52,32 @@ services:
     entrypoint: /go/bin/go-geoffrey
 ```
 and you will have your config server running.
+
+## Usage
+You can run Geoffrey on a docker container with the following command:
+
+```bash
+$ docker run -it --name geoffrey -v <absolute-config-path>:/app/config -e GEOFFREY_CONFIG=/app/config/ fernandosolivas/go-geoffrey:latest /go/bin/go-geoffrey
+```
+
+Now you will have a server running and you can get your configurations through a http request as:
+
+```bash
+$ curl http://localhost:<server-port>/<app-name>/<env>
+```
+
+Where <server-port> is the property in application.yml located in GEOFFREY_CONFIG path, <app-name> is your application name
+and <env> is the file environment. See the example below.
+
+```bash
+$ curl http://localhost:8080/message/dev
+#response
+bar:
+  foo: testPropertiesYml
+```
+
+In this case, geoffrey will search a file named message-dev.yml inside the repositories specified inside the application.yml
+in GEOFFREY_CONFIG path.
 
 ## Contributing
 
