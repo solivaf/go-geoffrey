@@ -1,7 +1,5 @@
 # Geoffrey
-Is a lightweight config server written in Go based on Git private repositories based on Spring Cloud Config Server. 
-
-It is easy to use and getting started. 
+A lightweight config server written in Go based on Spring Cloud Config Server. 
 
 ## Getting Started
 You can clone this repo, build the latest version or run the following command:
@@ -18,28 +16,50 @@ your configuration files.
 $ GEOFFREY_CONFIG=./config/new-application.yml go-geoffrey
 ```
 
+By default, Geoffrey needs one repository to run and provide configurations through an http request. You can use a default
+repository by using the following configuration file.
+
 ```yaml
-#new-application.yml
+#new-application.yml with single configuration repository 
 server:
   port: 9090
 
 git:
-  url: https://github.com/solivaf/go-maria #default repository is always required
+  url: https://github.com/solivaf/go-maria
   credential:
     username: solivaf
-    password: somedumbpassword
+    password: somepassword
+```
+
+Or multiple configuration repositories. 
+
+```yaml
+#new-application.yml with single configuration repository
+server:
+  port: 9090
+
+git:
+  url: https://github.com/solivaf/go-maria
+  credential:
+    username: solivaf
+    password: somepassword
   repositories:
     - name: config-properties #some specific repository
       url: https://github.com/solivaf/config-properties-foo
       credential:
         username: solivaf
-        password: somedumbpassword
+        password: somepassword
+    - name: second-config-properties #another specific repository
+          url: https://github.com/solivaf/config-properties-bar
+          credential:
+            username: solivaf
+            password: somepassword
 ```
 
 ### Running with Docker
 
-You can run Geoffrey with docker and must provide a base configuration file through the environment variable **GEOFFREY_CONFIG**
-as you can see in the example below:
+You must provide a base configuration file through the environment variable **GEOFFREY_CONFIG** as you can see in the 
+example below:
 
 ```yaml
 version: '3'
@@ -62,14 +82,7 @@ You can run Geoffrey on a docker container with the following command:
 $ docker run -it --name geoffrey -v <absolute-config-path>:/app/config -e GEOFFREY_CONFIG=/app/config/ fernandosolivas/go-geoffrey:latest /go/bin/go-geoffrey
 ```
 
-Now you will have a server running and you can get your configurations through a http request as:
-
-```bash
-$ curl http://localhost:<server-port>/<app-name>/<env>
-```
-
-Where <server-port> is the property in application.yml located in GEOFFREY_CONFIG path, <app-name> is your application name
-and <env> is the file environment. See the example below.
+Now you will have a server running and you can get your configurations through an http request as:
 
 ```bash
 $ curl http://localhost:8080/message/dev
@@ -78,7 +91,7 @@ bar:
   foo: testPropertiesYml
 ```
 
-In this case, geoffrey will search a file named message-dev.yml inside the repositories specified inside the application.yml
+In this case, geoffrey will search a file named ***message-dev.yml*** inside the repositories specified inside the application.yml
 in GEOFFREY_CONFIG path.
 
 ## Comparison
