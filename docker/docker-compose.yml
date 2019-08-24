@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  geoffrey:
+    image: fernandosolivas/go-geoffrey:latest
+    volumes:
+      - ./config/:/app/config
+    environment:
+      - GEOFFREY_CONFIG=/app/config/
+    entrypoint: /go/bin/go-geoffrey

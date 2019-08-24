@@ -16,7 +16,7 @@ var (
 	baseFileName = "application"
 )
 
-const GeoffreyConfig = "GEOFFREY_CONFIG"
+const geoffreyConfig = "GEOFFREY_CONFIG"
 
 func LoadConfig() *config.AppConfig {
 	configPath := getConfigPath()
@@ -48,7 +48,7 @@ func unmarshal(b []byte) config.AppConfig {
 }
 
 func getConfigPath() string {
-	path := os.Getenv(GeoffreyConfig)
+	path := os.Getenv(geoffreyConfig)
 	if len(path) == 0 {
 		path = defaultPath
 	}
