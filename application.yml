@@ -1,0 +1,14 @@
+server:
+  port: 9090
+
+git:
+  url: https://github.com/solivaf/go-maria
+  credential:
+    username: solivaf
+    password: somedumbpassword
+  repositories:
+    - name: config-properties
+      url: https://github.com/solivaf/config-properties-foo
+      credential:
+        username: solivaf
+        password: somedumbpassword

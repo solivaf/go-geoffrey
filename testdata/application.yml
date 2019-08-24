@@ -1,0 +1,14 @@
+server:
+  port: 9090
+
+git:
+  url: https://github.com/solivaf/geoffrey
+  credential:
+    username: johndoe
+    password: johndoepassword
+  repositories:
+    - name: go-maria
+      url: https://github.com/solivaf/go-maria
+      credential:
+        username: janedoe
+        password: janedoepassword
