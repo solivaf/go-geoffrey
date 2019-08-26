@@ -24,8 +24,11 @@ func NewDownloader(commander command.Commander) Downloader {
 }
 
 func (d *downloader) Download(repository config.Repository) (string, error) {
-	formattedUrl := d.formatUrl(repository.Url(), repository.Username(), repository.Password())
 	log.Println("cloning repository " + repository.Url())
+	if repository.IsSsh() {
+		return d.commander.Execute("git", "clone", repository.Url(), _repository.CheckoutPath(repository.Name()))
+	}
+	formattedUrl := d.formatUrl(repository.Url(), repository.Username(), repository.Password())
 	return d.commander.Execute("git", "clone", formattedUrl, _repository.CheckoutPath(repository.Name()))
 }
 

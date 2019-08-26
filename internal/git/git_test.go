@@ -23,7 +23,7 @@ func TestGitFetcher_Fetch(t *testing.T) {
 	f, err := os.Open(path + "/" + "application.yml")
 	content, err := ioutil.ReadAll(f)
 
-	repository := config.NewRepository(c.Url(), "default", c.Username(), c.Password())
+	repository := config.NewRepositoryPassword(c.Url(), "default", c.Username(), c.Password())
 	mockDownloader.EXPECT().Download(repository).Return(string(content), err)
 
 	assert.NoError(t, fetcher.Fetch())

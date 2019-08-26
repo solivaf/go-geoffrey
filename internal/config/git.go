@@ -7,9 +7,10 @@ type GitConfig struct {
 }
 
 type Repository struct {
-	U string     `yaml:"url"`
-	N string     `yaml:"name"`
-	C Credential `yaml:"credential"`
+	U   string     `yaml:"url"`
+	N   string     `yaml:"name"`
+	C   Credential `yaml:"credential"`
+	ssh bool
 }
 
 type Credential struct {
@@ -17,8 +18,12 @@ type Credential struct {
 	P  string `yaml:"password"`
 }
 
-func NewRepository(url, name, username, password string) Repository {
+func NewRepositoryPassword(url, name, username, password string) Repository {
 	return Repository{U: url, N: name, C: Credential{Us: username, P: password}}
+}
+
+func NewRepositorySsh(url string) Repository {
+	return Repository{U: url, ssh: true}
 }
 
 func (c *GitConfig) Url() string {
@@ -51,4 +56,8 @@ func (r *Repository) Username() string {
 
 func (r *Repository) Password() string {
 	return r.C.P
+}
+
+func (r *Repository) IsSsh() bool {
+	return r.ssh
 }

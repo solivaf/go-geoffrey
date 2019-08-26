@@ -8,7 +8,4 @@ git:
     password: somepassword
   repositories:
     - name: config-properties
-      url: https://github.com/solivaf/config-properties-foo
-      credential:
-        username: solivaf
-        password: somepassword
+      url: git@github.com:solivaf/go-geoffrey.git

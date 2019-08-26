@@ -3,6 +3,7 @@ package git
 import (
 	"github.com/solivaf/go-geoffrey/internal/config"
 	"log"
+	"strings"
 )
 
 type GitFetcher struct {
@@ -15,18 +16,29 @@ func NewFetcher(config *config.GitConfig, downloader Downloader) Fetcher {
 }
 
 func (f *GitFetcher) Fetch() error {
-	url := f.config.Url()
-	user := f.config.Username()
-	password := f.config.Password()
+	f.fetchDefaultRepository()
 
 	for _, repository := range f.config.Repositories() {
 		go func() {
 			f.downloadRepository(repository)
 		}()
 	}
-	defaultRepository := config.NewRepository(url, "default", user, password)
-	f.downloadRepository(defaultRepository)
+
 	return nil
+}
+
+func (f *GitFetcher) fetchDefaultRepository() {
+	var defaultRepository config.Repository
+	url := f.config.Url()
+	if strings.HasPrefix(url, "https") {
+		user := f.config.Username()
+		password := f.config.Password()
+		defaultRepository = config.NewRepositoryPassword(url, "default", user, password)
+	}
+	if strings.HasPrefix(url, "git") {
+		defaultRepository = config.NewRepositorySsh(url)
+	}
+	f.downloadRepository(defaultRepository)
 }
 
 func (f *GitFetcher) downloadRepository(repository config.Repository) {
