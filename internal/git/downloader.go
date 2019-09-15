@@ -25,6 +25,7 @@ func NewDownloader(commander command.Commander) Downloader {
 
 func (d *downloader) Download(repository config.Repository) (string, error) {
 	log.Println("cloning repository " + repository.Url())
+	d.commander.Execute("rm", "-rf", _repository.CheckoutPath(repository.Name()))
 	if repository.IsSsh() {
 		return d.commander.Execute("git", "clone", repository.Url(), _repository.CheckoutPath(repository.Name()))
 	}
