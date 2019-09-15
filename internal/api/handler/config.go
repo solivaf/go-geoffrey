@@ -2,10 +2,10 @@ package handler
 
 import (
 	"encoding/json"
+	"github.com/ghodss/yaml"
 	"github.com/go-chi/chi"
 	"github.com/solivaf/go-geoffrey/internal/git"
 	"github.com/solivaf/go-geoffrey/internal/repository"
-	"gopkg.in/yaml.v2"
 	"net/http"
 )
 
@@ -22,21 +22,14 @@ func (h *Handler) RetrieveConfig(w http.ResponseWriter, r *http.Request) {
 	env := chi.URLParam(r, "env")
 	response := h.createContent(app, env)
 
-	m := make(map[string]map[string]interface{})
-	if err := yaml.Unmarshal([]byte(response), &m); err != nil {
-		w.Write([]byte(err.Error()))
-		w.WriteHeader(http.StatusInternalServerError)
-	}
-
-	b, err := json.Marshal(&m)
+	jsonBody, err := yaml.YAMLToJSON([]byte(response))
 	if err != nil {
 		w.Write([]byte(err.Error()))
 		w.WriteHeader(http.StatusInternalServerError)
-		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	w.Write(b)
+	w.Write(jsonBody)
 }
 
 func (h *Handler) Health(w http.ResponseWriter, r *http.Request) {
