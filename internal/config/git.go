@@ -22,8 +22,8 @@ func NewRepositoryPassword(url, name, username, password string) Repository {
 	return Repository{U: url, N: name, C: Credential{Us: username, P: password}}
 }
 
-func NewRepositorySsh(url string) Repository {
-	return Repository{U: url, ssh: true}
+func NewRepositorySsh(url, name string) Repository {
+	return Repository{U: url, N: name, ssh: true}
 }
 
 func (c *GitConfig) Url() string {

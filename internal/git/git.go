@@ -36,7 +36,7 @@ func (f *GitFetcher) fetchDefaultRepository() {
 		defaultRepository = config.NewRepositoryPassword(url, "default", user, password)
 	}
 	if strings.HasPrefix(url, "git") {
-		defaultRepository = config.NewRepositorySsh(url)
+		defaultRepository = config.NewRepositorySsh(url, "default")
 	}
 	f.downloadRepository(defaultRepository)
 }
