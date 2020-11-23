@@ -3,7 +3,7 @@ RUN apk update && apk add --no-cache git
 VOLUME /app/go-geoffrey
 COPY . /app/go-geoffrey
 WORKDIR /app/go-geoffrey
-RUN go install github.com/solivaf/go-geoffrey
+RUN go install
 
 FROM alpine
 RUN apk update && apk add --no-cache git

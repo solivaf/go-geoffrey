@@ -30,7 +30,7 @@ func (f *GitFetcher) Fetch() error {
 func (f *GitFetcher) fetchDefaultRepository() {
 	var defaultRepository config.Repository
 	url := f.config.Url()
-	if strings.HasPrefix(url, "https") {
+	if strings.HasPrefix(url, "http")  {
 		user := f.config.Username()
 		password := f.config.Password()
 		defaultRepository = config.NewRepositoryPassword(url, "default", user, password)

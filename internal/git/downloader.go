@@ -10,6 +10,7 @@ import (
 )
 
 const httpsPrefix = "https://"
+const httpPrefix = "http://"
 
 type Downloader interface {
 	Download(repository config.Repository) (string, error)
@@ -36,13 +37,15 @@ func (d *downloader) Download(repository config.Repository) (string, error) {
 func (d *downloader) formatUrl(url, username, password string) string {
 	if isHttps := d.isHttps(url); isHttps {
 		urlParts := strings.Split(url, httpsPrefix)
-		return d.getFormattedUrl(username, password, urlParts)
+		return d.getFormattedUrl(httpsPrefix, username, password, urlParts)
 	}
-	return url
+
+    urlParts := strings.Split(url, httpPrefix)
+    return d.getFormattedUrl(httpPrefix, username, password, urlParts)
 }
 
-func (d *downloader) getFormattedUrl(username string, password string, urlParts []string) string {
-	return httpsPrefix + _url.QueryEscape(username) + ":" + _url.QueryEscape(password) + "@" + urlParts[1] + ".git"
+func (d *downloader) getFormattedUrl(prefix string, username string, password string, urlParts []string) string {
+	return prefix + _url.QueryEscape(username) + ":" + _url.QueryEscape(password) + "@" + urlParts[1] + ".git"
 }
 
 func (d *downloader) isHttps(url string) bool {
